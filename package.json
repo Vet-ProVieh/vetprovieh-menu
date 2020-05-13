@@ -3,7 +3,8 @@
   "description": "Responsive Sidemenu featuring Bulma.css",
   "main": "vetprovieh-sidemenu.js",
   "dependencies": {
-    "@polymer/polymer": "^3.0.0"
+    "@polymer/polymer": "^3.0.0",
+    "bulma": "^0.8.2"
   },
   "devDependencies": {
     "@polymer/iron-demo-helpers": "^3.1.0",

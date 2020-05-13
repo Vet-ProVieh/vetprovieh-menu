@@ -1,33 +1,70 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>vetprovieh-sidemenu demo</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <title>vetprovieh-sidemenu demo</title>
 
-    <script type="module">
-      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
-      import '@polymer/iron-demo-helpers/demo-snippet';
-    </script>
+  <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
-    <script type="module" src="../vetprovieh-sidemenu.js"></script>
+  <script type="module">
+    import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+    import '@polymer/iron-demo-helpers/demo-snippet';
+  </script>
 
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      </style>
-    </custom-style>
-  </head>
-  <body>
-    <div class="vertical-section-container centered">
-      <h3>Basic vetprovieh-sidemenu demo</h3>
-      <demo-snippet>
-        <template>
-          <vetprovieh-sidemenu></vetprovieh-sidemenu>
-        </template>
-      </demo-snippet>
-    </div>
-  </body>
+  <script type="module" src="../vetprovieh-sidemenu.js"></script>
+
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </custom-style>
+</head>
+
+<body>
+  <div class="vertical-section-container centered">
+    <h3>Side-Menu on the left</h3>
+    <demo-snippet>
+      <template>
+        <button onclick="openMenu('left')" id="left-menu-open">open Left</button>
+        <side-menu id="left-menu" width="300px">
+          <h2> LEFT </h2>
+          <ul>
+            <li><a href="#">Item 1</a></li>
+            <li><a href="#">Item 2</a></li>
+            <li><a href="#">Item 3</a></li>
+          </ul>
+        </side-menu>
+
+      </template>
+    </demo-snippet>
+  </div>
+
+  <div class="vertical-section-container centered">
+    <h3>Side-Menu on the right</h3>
+    <demo-snippet>
+      <template>
+        <button id="right-menu-open">open right</button>
+        <side-menu id="right-menu" orientation="right" width="300px">
+          <h2> Right </h2>
+          <ul>
+            <li><a href="#">Item 1</a></li>
+            <li><a href="#">Item 2</a></li>
+            <li><a href="#">Item 3</a></li>
+          </ul>
+        </side-menu>
+      </template>
+    </demo-snippet>
+  </div>
+
+
+  <script>
+    function openMenu(orientation) {
+      var sideMenu = document.getElementById(orientation + "-menu");
+      sideMenu.dispatchEvent(new Event("toggle"));
+    }
+  </script>
+</body>
+
 </html>

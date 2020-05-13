@@ -1,4 +1,4 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 
 /**
  * `vetprovieh-sidemenu`
@@ -9,54 +9,65 @@ import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
  * @demo demo/index.html
  */
 class VetproviehSidemenu extends PolymerElement {
-  
+
 
   static get observedAttributes() {
     return ["width", "orientation"];
   }
 
+
+  static get template() {
+    return `nav{
+      position: fixed;
+      top: 0;
+      z-index: 100;
+      height: 100%;
+      padding: .5rem 1rem;
+      box-shadow: 0 6px 12px rgba(107, 82, 82, 0.3);
+      background-color: white;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      transition: ease 0.2s all;
+  }
+    
+    div.body-overlay {
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      position: fixed;
+      z-index: 3;
+      top: 0;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.5);
+    }`;
+  }
+
   constructor() {
     super();
-    // Write HTML from Outside to a var.
-    this._outsideInnerHtml = this.innerHTML;
 
-    // Set Default-Values
-    this._width = '300px';
-    this.attributeChangedCallback("orientation",null,"left");
-
-    this._basicCssStyle = `side-menu nav{
-                            position: fixed;
-                            top: 0;
-                            z-index: 100;
-                            height: 100%;
-                            padding: .5rem 1rem;
-                            box-shadow: 0 6px 12px rgba(107, 82, 82, 0.3);
-                            background-color: white;
-                            -webkit-box-sizing: border-box;
-                            -moz-box-sizing: border-box;
-                            box-sizing: border-box;
-                            transition: ease 0.2s all;
-                        }
-                          
-                          side-menu div.body-overlay {
-                            width: 100vw;
-                            height: 100vh;
-                            display: none;
-                            position: fixed;
-                            z-index: 3;
-                            top: 0;
-                            overflow: hidden;
-                            background: rgba(0, 0, 0, 0.5);
-                        }
-                      `;
+    /**
+     * @type {!Object}
+     * @private
+     */
+    this._properties = {
+      width: "300px",
+      content: this.innerHTML
+    };
   }
 
   /**
    * Listining to Callback
    */
-  connectedCallback() {
-    this._updateRendering();
+  connectedCallback() {  // Lazy creation of shadowRoot.
+    if (!this.shadowRoot) {
+      this.attachShadow({
+        mode: 'open'
+      }).innerHTML = "";
+    }
+    console.log("X");
     this._addListener();
+    this._updateRendering();
   }
 
   /**
@@ -65,20 +76,9 @@ class VetproviehSidemenu extends PolymerElement {
    * @param {*} oldValue 
    * @param {*} newValue 
    */
-  attributeChangedCallback(name, oldValue, newValue) {
-    try {
-      if (newValue) {
-        this["_" + name] = newValue;
-
-        if(name == "orientation"){
-          this.classList.remove("left");
-          this.classList.add(newValue);
-        }
-      }
-      this._updateRendering();
-    } catch (ex) {
-      console.log("Side-Menu: I could not render new Attribute for " + name);
-      console.log(ex);
+  attributeChangedCallback(name, old, value) {
+    if (old !== value) {
+      this[name] = value;
     }
   }
 
@@ -87,15 +87,18 @@ class VetproviehSidemenu extends PolymerElement {
    * Getter for Width of the Popup-Menu
    */
   get width() {
-    this._width;
+    return this._properties.width;
   }
 
   /**
    * PUBLIC 
    * Setter for Widh of the Popup-Menu
    */
-  set width(v) {
-    this.setAttribute("width", v);
+  set width(val) {
+    if (val !== this.width) {
+      this._properties.page = val;
+      this._updateRendering();
+    }
   }
 
   /**
@@ -103,15 +106,18 @@ class VetproviehSidemenu extends PolymerElement {
    * Getter for Orientation of the Popup-Menu
    */
   get orientation() {
-    this._orientation;
+    return this._properties.orientation;
   }
 
   /**
    * PUBLIC 
    * Setter for Orientation of the Popup-Menu
    */
-  set orientation(v) {
-    this.setAttribute("orientation", v);
+  set orientation(val) {
+    if (val !== this.orientation) {
+      this._properties.orientation = val;
+      this._updateRendering();
+    }
   }
 
   /**
@@ -140,27 +146,33 @@ class VetproviehSidemenu extends PolymerElement {
    * Writing HTML-Output
    */
   _updateRendering() {
-    this.innerHTML = `
+    if (this.shadowRoot) {
+      console.log("XX");
+      this.shadowRoot.innerHTML = `
+    <link rel="stylesheet" href="/node_modules/bulma/css/bulma.min.css">
+        
     <style>
-      ` + this._basicCssStyle + `
+      ` + VetproviehSidemenu.template + `
 
-      side-menu.` + this._orientation + ` nav{
+      nav.` + this._orientation + `{
         width: ` + this._width + `;
         ` + this._orientation + `: -` + this._width + `;
       }
 
-      body side-menu.open div.body-overlay {
+    div.body-overlay {
         display: block;
       }
 
-      body side-menu.open nav{
+      nav.open{
         ` + this._orientation + `: 0;
       }
     </style>
     <div id="body-overlay-` + this._orientation + `" class="body-overlay"></div>
-    <nav role="navigation">            
-    ` + this._outsideInnerHtml + `
-    </nav>`;
+    <nav class="`+ this._orientation + `" role="navigation">            
+    ` + this._properties.content + `
+    </nav>`
+    ;
+    }
   }
 }
 
