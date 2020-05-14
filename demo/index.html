@@ -27,15 +27,15 @@
     <h3>Side-Menu on the left</h3>
     <demo-snippet>
       <template>
-        <button onclick="openMenu('left')" id="left-menu-open">open Left</button>
-        <side-menu id="left-menu" width="300px">
+        <button onclick="openMenu('left')">open Left</button>
+        <vetprovieh-sidemenu id="left-menu" width="300px">
           <h2> LEFT </h2>
           <ul>
             <li><a href="#">Item 1</a></li>
             <li><a href="#">Item 2</a></li>
             <li><a href="#">Item 3</a></li>
           </ul>
-        </side-menu>
+        </vetprovieh-sidemenu>
 
       </template>
     </demo-snippet>
@@ -45,15 +45,15 @@
     <h3>Side-Menu on the right</h3>
     <demo-snippet>
       <template>
-        <button id="right-menu-open">open right</button>
-        <side-menu id="right-menu" orientation="right" width="300px">
+        <button onclick="openMenu('right')">open right</button>
+        <vetprovieh-sidemenu id="right-menu" orientation="right" width="300px">
           <h2> Right </h2>
           <ul>
             <li><a href="#">Item 1</a></li>
             <li><a href="#">Item 2</a></li>
             <li><a href="#">Item 3</a></li>
           </ul>
-        </side-menu>
+        </vetprovieh-sidemenu>
       </template>
     </demo-snippet>
   </div>
@@ -62,7 +62,8 @@
   <script>
     function openMenu(orientation) {
       var sideMenu = document.getElementById(orientation + "-menu");
-      sideMenu.dispatchEvent(new Event("toggle"));
+      console.log(sideMenu)
+      sideMenu.dispatchEvent(new CustomEvent("toggle"));
     }
   </script>
 </body>
