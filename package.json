@@ -1,12 +1,21 @@
 {
-  "name": "vetprovieh-sidemenu",
+  "name": "@tomuench/vetprovieh-sidemenu",
   "description": "Responsive Sidemenu featuring Bulma.css",
+  "author": {
+    "name": "Tobias Münch",
+    "email": "tobias.muench@hs-osnabrueck.de",
+    "url": "https://github.com/Vet-ProVieh/vetprovieh-sidemenu"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Vet-ProVieh/vetprovieh-sidemenu.git"
+  },
   "main": "vetprovieh-sidemenu.js",
   "dependencies": {
-    "@polymer/polymer": "^3.0.0",
     "bulma": "^0.8.2"
   },
   "devDependencies": {
+    "@polymer/polymer": "^3.0.0",
     "@polymer/iron-demo-helpers": "^3.1.0",
     "@polymer/test-fixture": "^4.0.2",
     "@webcomponents/webcomponentsjs": "^2.0.0",
