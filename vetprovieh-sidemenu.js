@@ -15,7 +15,7 @@ class VetproviehSidemenu extends PolymerElement {
     }
 
 
-    static get template() {
+    static get menuTemplate() {
         return `nav{
                   position: fixed;
                   top: 0;
@@ -45,8 +45,6 @@ class VetproviehSidemenu extends PolymerElement {
 
     constructor() {
         super();
-
-        console.log("Constructor");
         /**
          * @type {!Object}
          * @private
@@ -155,7 +153,7 @@ class VetproviehSidemenu extends PolymerElement {
                 <link rel="stylesheet" href="/node_modules/bulma/css/bulma.min.css">
                     
                 <style>
-                  ` + VetproviehSidemenu.template + `
+                  ` + VetproviehSidemenu.menuTemplate + `
             
                   nav {
                     width: ` + this.width + `;
