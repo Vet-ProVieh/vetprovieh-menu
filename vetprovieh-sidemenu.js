@@ -148,7 +148,6 @@ class VetproviehSidemenu extends PolymerElement {
      */
     _updateRendering() {
         if (this.shadowRoot) {
-            console.log("XX");
             this.shadowRoot.innerHTML = `
                 <link rel="stylesheet" href="/node_modules/bulma/css/bulma.min.css">
                     
