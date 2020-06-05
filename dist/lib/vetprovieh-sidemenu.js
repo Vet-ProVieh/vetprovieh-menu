@@ -1,5 +1,7 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.VetproviehSidemenu = void 0;
+const vetprovieh_shared_1 = require("@tomuench/vetprovieh-shared");
 /**
  * `vetprovieh-sidemenu`
  * Responsive Sidemenu featuring Bulma.css
@@ -7,14 +9,37 @@ import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
  * @customElement
  * @demo demo/index.html
  */
-class VetproviehSidemenu extends PolymerElement {
-
-
-    static get observedAttributes() {
-        return ["width", "orientation"];
+class VetproviehSidemenu extends vetprovieh_shared_1.VetproviehElement {
+    /**
+     * Default-Constructor
+     */
+    constructor() {
+        super();
+        this._properties = {
+            width: '300px',
+            orientation: 'left',
+            content: '',
+        };
+        this._properties.content = this.innerHTML;
     }
-
-
+    /**
+     * Returning observed Attributes
+     * @return {Array<string>}
+     */
+    static get observedAttributes() {
+        return ['width', 'orientation'];
+    }
+    /**
+     * Possible Orientations
+     * @return {Array<string>}
+     */
+    static get orientations() {
+        return ['right', 'left'];
+    }
+    /**
+     * Returning Menu Template
+     * @return {string}
+     */
     static get menuTemplate() {
         return `nav{
                   position: fixed;
@@ -42,115 +67,88 @@ class VetproviehSidemenu extends PolymerElement {
                   background: rgba(0, 0, 0, 0.5);
                 }`;
     }
-
-    constructor() {
-        super();
-        /**
-         * @type {!Object}
-         * @private
-         */
-        this._properties = {
-            width: "300px",
-            orientation: "left",
-            content: this.innerHTML
-        };
-    }
-
     /**
      * Listining to Callback
      */
-    connectedCallback() {  // Lazy creation of shadowRoot.
+    connectedCallback() {
         if (!this.shadowRoot) {
             this.attachShadow({
-                mode: 'open'
-            }).innerHTML = "";
+                mode: 'open',
+            }).innerHTML = '';
         }
         this._updateRendering();
         this._addListener();
     }
-
-    /**
-     * Callback for Attributes
-     * @param {*} name
-     * @param {*} oldValue
-     * @param {*} newValue
-     */
-    attributeChangedCallback(name, old, value) {
-        if (old !== value) {
-            this[name] = value;
-        }
-    }
-
     /**
      * PUBLIC
      * Getter for Width of the Popup-Menu
+     * @return {string}
      */
     get width() {
         return this._properties.width;
     }
-
     /**
      * PUBLIC
      * Setter for Widh of the Popup-Menu
+     * @param {string} val
      */
     set width(val) {
         if (val !== this.width) {
-            this._properties.page = val;
+            this._properties.width = val;
             this._updateRendering();
         }
     }
-
     /**
      * PUBLIC
      * Getter for Orientation of the Popup-Menu
+     * @return {string}
      */
     get orientation() {
         return this._properties.orientation;
     }
-
     /**
      * PUBLIC
      * Setter for Orientation of the Popup-Menu
+     * @param {string} val
      */
     set orientation(val) {
-        if (val !== this.orientation) {
+        const included = VetproviehSidemenu.orientations.includes(val);
+        if (val !== this.orientation && included) {
             this._properties.orientation = val;
             this._updateRendering();
         }
     }
-
     /**
      * PUBLIC
      * Menü öffnen/schließen
      */
     toggleMenu() {
-        let menu = this.shadowRoot.getElementById("menu");
-        if (!menu.classList.contains("open")) {
-            menu.classList.add("open");
-        } else {
-            menu.classList.remove("open");
+        if (this.shadowRoot) {
+            const menu = this.getByIdFromShadowRoot('menu');
+            if (!menu.classList.contains('open')) {
+                menu.classList.add('open');
+            }
+            else {
+                menu.classList.remove('open');
+            }
         }
     }
-
     /**
      * PRIVATE
      * Add EventListener to Component
      */
     _addListener() {
         this.addEventListener('toggle', this.toggleMenu);
-        this.shadowRoot.getElementById("body-overlay")
-            .addEventListener("click", (_) => this.toggleMenu());
+        const element = this.getByIdFromShadowRoot('body-overlay');
+        element.addEventListener('click', () => this.toggleMenu());
     }
-
     /**
      * PRIVATE
      * Writing HTML-Output
      */
     _updateRendering() {
         if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = `
-                <link rel="stylesheet" href="/node_modules/bulma/css/bulma.min.css">
-                    
+            this.shadowRoot.innerHTML = vetprovieh_shared_1.VetproviehElement.template + `
                 <style>
                   ` + VetproviehSidemenu.menuTemplate + `
             
@@ -176,5 +174,5 @@ class VetproviehSidemenu extends PolymerElement {
         }
     }
 }
-
+exports.VetproviehSidemenu = VetproviehSidemenu;
 window.customElements.define('vetprovieh-sidemenu', VetproviehSidemenu);
