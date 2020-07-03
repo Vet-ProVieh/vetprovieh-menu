@@ -1,7 +1,61 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.VetproviehSidemenu = void 0;
-const vetprovieh_shared_1 = require("@tomuench/vetprovieh-shared");
+/**
+ * Helper to get and set Attributes on Objects
+ */
+
+/**
+ * BaseClass for view Elements
+ */
+class VetproviehElement extends HTMLElement {
+    /**
+       * Callback Implementation
+       * @param {string} name
+       * @param {any} old
+       * @param {any} value
+       */
+    attributeChangedCallback(name, old, value) {
+        if (old !== value) {
+            this[name] = value;
+        }
+    }
+    /**
+     * Loading HTML-Element From ShadowRoot
+     * @param {string} id
+     * @return {HTMLElement | undefined}
+     */
+    getByIdFromShadowRoot(id) {
+        if (this.shadowRoot) {
+            return this.shadowRoot.getElementById(id);
+        }
+    }
+    /**
+       * Hide Or Show Element
+       * @param {string} id
+       * @param {boolean} show
+       */
+    updateVisibility(id, show) {
+        const search = this.getByIdFromShadowRoot(id);
+        if (search) {
+            if (!show) {
+                search.classList.add('is-hidden');
+            }
+            else {
+                search.classList.remove('is-hidden');
+            }
+        }
+    }
+    // -----------------
+    // CLASS METHODS
+    // -----------------
+    /**
+       * Getting Template
+       * @return {string}
+       */
+    static get template() {
+        return `<link href="../node_modules/bulma/css/bulma.min.css" 
+                  rel="stylesheet" type="text/css">`;
+    }
+}
+
 /**
  * `vetprovieh-sidemenu`
  * Responsive Sidemenu featuring Bulma.css
@@ -9,7 +63,7 @@ const vetprovieh_shared_1 = require("@tomuench/vetprovieh-shared");
  * @customElement
  * @demo demo/index.html
  */
-class VetproviehSidemenu extends vetprovieh_shared_1.VetproviehElement {
+class VetproviehSidemenu extends VetproviehElement {
     /**
      * Default-Constructor
      */
@@ -148,7 +202,7 @@ class VetproviehSidemenu extends vetprovieh_shared_1.VetproviehElement {
      */
     _updateRendering() {
         if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = vetprovieh_shared_1.VetproviehElement.template + `
+            this.shadowRoot.innerHTML = VetproviehElement.template + `
                 <style>
                   ` + VetproviehSidemenu.menuTemplate + `
             
@@ -174,5 +228,7 @@ class VetproviehSidemenu extends vetprovieh_shared_1.VetproviehElement {
         }
     }
 }
-exports.VetproviehSidemenu = VetproviehSidemenu;
 window.customElements.define('vetprovieh-sidemenu', VetproviehSidemenu);
+
+export { VetproviehSidemenu };
+//# sourceMappingURL=vetprovieh-sidemenu.js.map
