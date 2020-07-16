@@ -107,6 +107,7 @@ class VetproviehSidemenu extends VetproviehElement {
                   -moz-box-sizing: border-box;
                   box-sizing: border-box;
                   transition: ease 0.2s all;
+                  overflow-y:auto;
               }
                 
                 #body-overlay {
