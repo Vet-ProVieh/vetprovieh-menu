@@ -13,7 +13,7 @@ describe('constructor', () => {
         div.innerHTML = "<vetprovieh-sidemenu><p>hello</p></vetprovieh-sidemenu>"
         const menu:VetproviehSidemenu = div.getElementsByTagName("vetprovieh-sidemenu")[0] as VetproviehSidemenu;
 
-        expect(menu["_properties"].content).toEqual("<p>hello</p>")
+        expect(menu["_content"]).toEqual("<p>hello</p>")
 
     });
 
@@ -31,7 +31,7 @@ describe('observedAttributes', () => {
 
 describe('menuTemplate', () => {
     test("should return something in menu template", () => {
-        const template = VetproviehSidemenu.menuTemplate;
+        const template = new VetproviehSidemenu().template;
 
         expect(template).not.toEqual(undefined);
     });
@@ -40,7 +40,7 @@ describe('menuTemplate', () => {
 describe('connectedCallback', () => {
     test("should add shadow root with content", () => {
         const menu = new VetproviehSidemenu();
-        menu["_properties"].content = "<p>test</p>";
+        menu["_content"] = "<p>test</p>";
         menu.connectedCallback();
         expect(menu.shadowRoot).not.toEqual(undefined)
 
