@@ -16,5 +16,5 @@ build:
 
 test:
   script:
-    - git clone https://tomuench:${CI_JOB_TOKEN}@gitlab.edvsz.hs-osnabrueck.de/vetprovieh/core/web-application/vetprovieh-shared ../vetprovieh-shared
+    - git clone https://tomuench:${CI_JOB_TOKEN}@gitlab.edvsz.hs-osnabrueck.de/vetprovieh/core/web-application/vetprovieh-shared
     - npm run test
