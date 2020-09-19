@@ -8,6 +8,7 @@ cache:
     - .npm/
 
 before_script:
+  - git clone https://tomuench:${CI_JOB_TOKEN}@gitlab.edvsz.hs-osnabrueck.de/vetprovieh/core/web-application/vetprovieh-shared
   - npm ci --cache .npm --prefer-offline
   
 build:
@@ -16,5 +17,4 @@ build:
 
 test:
   script:
-    - git clone https://tomuench:${CI_JOB_TOKEN}@gitlab.edvsz.hs-osnabrueck.de/vetprovieh/core/web-application/vetprovieh-shared
     - npm run test
