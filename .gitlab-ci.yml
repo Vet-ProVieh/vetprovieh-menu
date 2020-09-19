@@ -1,0 +1,19 @@
+stages:
+  - build
+  - test
+
+cache:
+  key: node_modules
+  paths:
+    - .npm/
+
+before_script:
+  - npm ci --cache .npm --prefer-offline
+  
+build:
+  script:
+    - npm install
+
+test:
+  script:
+    - npm run test
