@@ -61,7 +61,7 @@ import { VetproviehElement, WebComponent } from '@tomuench/vetprovieh-shared/lib
 export class VetproviehSidemenu extends VetproviehElement {
   private _width: string = "300px";
   private _orientation: string = "left";
-  private _content : String = "";
+  private _content: String = "";
 
   /**
    * Returning observed Attributes
@@ -88,16 +88,19 @@ export class VetproviehSidemenu extends VetproviehElement {
    * Default-Constructor
    */
   constructor() {
-    super(true,false);
+    super(true, false);
     this._content = this.innerHTML;
   }
 
+  connectedCallback() {
+    this.render();
+  }
 
   render() {
     super.render();
     this._addListener();
   }
-  
+
   /**
    * PUBLIC
    * Getter for Width of the Popup-Menu
