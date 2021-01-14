@@ -83,7 +83,6 @@ describe('toggleMenu', () => {
     test("should open and close menu", () => {
         const menu = new VetproviehSidemenu();
         menu.connectedCallback();
-        menu.connectedCallback();
         const shadowRoot = menu.shadowRoot as ShadowRoot;
         const menuElement: HTMLElement = shadowRoot.getElementById('menu') as HTMLElement;
 

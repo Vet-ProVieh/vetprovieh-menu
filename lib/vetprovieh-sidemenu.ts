@@ -79,6 +79,10 @@ export class VetproviehSidemenu extends VetproviehElement {
     return ['right', 'left'];
   }
 
+  static blablabalTest(): string {
+    return "hello";
+  }
+
 
   /**
    * Default-Constructor
@@ -88,13 +92,12 @@ export class VetproviehSidemenu extends VetproviehElement {
     this._content = this.innerHTML;
   }
 
-  /**
-   * Listining to Callback
-   */
-  connectedCallback() { // Lazy creation of shadowRoot.
+
+  render() {
+    super.render();
     this._addListener();
   }
-
+  
   /**
    * PUBLIC
    * Getter for Width of the Popup-Menu
@@ -140,7 +143,7 @@ export class VetproviehSidemenu extends VetproviehElement {
    * PUBLIC
    * Menü öffnen/schließen
    */
-  toggleMenu() {
+  public toggleMenu() {
     if (this.shadowRoot) {
       const menu = this.getByIdFromShadowRoot('menu') as HTMLElement;
       if (!menu.classList.contains('open')) {
@@ -155,7 +158,7 @@ export class VetproviehSidemenu extends VetproviehElement {
    * PRIVATE
    * Add EventListener to Component
    */
-  _addListener() {
+  private _addListener() {
     this.addEventListener('toggle', this.toggleMenu);
     const element = this.getByIdFromShadowRoot('body-overlay') as HTMLElement;
     element.addEventListener('click', () => this.toggleMenu());
