@@ -98,7 +98,12 @@ export class VetproviehSidemenu extends VetproviehElement {
 
   render() {
     super.render();
+    console.log("Render menu");
     this._addListener();
+  }
+
+  protected get skipRenderOnCallback() : boolean {
+    return true;
   }
 
   /**
