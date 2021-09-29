@@ -89,7 +89,7 @@ export class VetproviehSidemenu extends VetproviehElement {
    */
   constructor() {
     super(true, false);
-    this._content = this.innerHTML;
+    this._content = this.querySelector("template")?.innerHTML || "";
   }
 
   connectedCallback() {
