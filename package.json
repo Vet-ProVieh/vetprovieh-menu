@@ -19,7 +19,7 @@
     "@vetprovieh/vetprovieh-shared": "^1.0.5"
   },
   "scripts": {
-    "build": "rollup -c; tsc -d dist/vetprovieh-sidemenu.js --emitDeclarationOnly --allowJs",
+    "build": "rollup -c",
     "test": "jest --colors --coverage test",
     "lint": "eslint . --ext .ts --fix"
   },
