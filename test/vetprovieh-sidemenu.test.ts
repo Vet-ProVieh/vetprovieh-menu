@@ -10,7 +10,7 @@ describe('constructor', () => {
 
     test("default values", () => {
         const div = document.createElement("div");
-        div.innerHTML = "<vetprovieh-sidemenu><p>hello</p></vetprovieh-sidemenu>"
+        div.innerHTML = "<vetprovieh-sidemenu><template><p>hello</p></template></vetprovieh-sidemenu>"
         const menu:VetproviehSidemenu = div.getElementsByTagName("vetprovieh-sidemenu")[0] as VetproviehSidemenu;
 
         expect(menu["_content"]).toEqual("<p>hello</p>")

@@ -1,12 +1,6 @@
-import { VetproviehElement, WebComponent } from '@tomuench/vetprovieh-shared/lib';
+import {VetproviehElement, WebComponent} from '@vetprovieh/vetprovieh-shared';
 
-/**
- * `vetprovieh-sidemenu`
- * Responsive Sidemenu featuring Bulma.css
- *
- * @customElement
- * @demo demo/index.html
- */
+// eslint-disable-next-line new-cap
 @WebComponent({
   template: VetproviehElement.template + `
   <style>
@@ -24,7 +18,7 @@ import { VetproviehElement, WebComponent } from '@tomuench/vetprovieh-shared/lib
       transition: ease 0.2s all;
       overflow-y:auto;
     }
-    
+
     #body-overlay {
       width: 100vw;
       height: 100vh;
@@ -52,20 +46,23 @@ import { VetproviehElement, WebComponent } from '@tomuench/vetprovieh-shared/lib
   </style>
   <div id="menu">
       <div id="body-overlay"></div>
-      <nav role="navigation">            
+      <nav role="navigation">
        \${this._content}
       </nav>
   </div>`,
-  tag: 'vetprovieh-sidemenu'
+  tag: 'vetprovieh-sidemenu',
 })
+/**
+ * Responsive Sidemenu featuring Bulma.css
+ */
 export class VetproviehSidemenu extends VetproviehElement {
-  private _width: string = "300px";
-  private _orientation: string = "left";
-  private _content: String = "";
+  private _width = '300px';
+  private _orientation = 'left';
+  private _content = '';
 
   /**
    * Returning observed Attributes
-   * @return {Array<string>}
+   * @return {string[]}
    */
   static get observedAttributes(): string[] {
     return ['width', 'orientation'];
@@ -79,29 +76,33 @@ export class VetproviehSidemenu extends VetproviehElement {
     return ['right', 'left'];
   }
 
-  static blablabalTest(): string {
-    return "hello";
-  }
-
-
   /**
    * Default-Constructor
    */
   constructor() {
     super(true, false);
-    this._content = this.querySelector("template")?.innerHTML || "";
+    this._content = this.querySelector('template')?.innerHTML || '';
   }
 
+  /**
+   * Connected Callback
+   */
   connectedCallback() {
     this.render();
   }
 
+  /**
+   * Render element
+   */
   render() {
     super.render();
-    console.log("Render menu");
     this._addListener();
   }
 
+  /**
+   * Skip on Render Callback
+   * @return {boolean}
+   */
   protected get skipRenderOnCallback() : boolean {
     return true;
   }
@@ -111,7 +112,7 @@ export class VetproviehSidemenu extends VetproviehElement {
    * Getter for Width of the Popup-Menu
    * @return {string}
    */
-  get width() {
+  get width() : string {
     return this._width;
   }
 
